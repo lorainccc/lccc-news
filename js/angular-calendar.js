@@ -43,7 +43,8 @@ app.directive("calendar", function() {
     };
     
     function _removeTime(date) {
-        return date.day(0).hour(0).minute(0).second(0).millisecond(0);
+        //return date.day(0).hour(0).minute(0).second(0).millisecond(0);
+								return date.startOf('day');
     }
 
     function _buildMonth(scope, start, month) {
