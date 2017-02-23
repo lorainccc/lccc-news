@@ -101,10 +101,22 @@ function lccc_news_scripts() {
 	wp_enqueue_script('Moment-with-locale-Js', plugin_dir_url( __FILE__ ) . 'js/moment-with-locales.min.js');
 	
 		wp_enqueue_script('angular-calendar', plugin_dir_url( __FILE__ ) . 'js/angular-calendar.js','angular-core','1',true);
+
+	
+	wp_enqueue_script( 'angular-resource', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.js', array('angular-core'), '1.0', false );
+	
+	wp_enqueue_script( 'ui-router', 'https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js', array( 'angular-core' ), '1.0', false );
+	
+		wp_enqueue_script( 'angular-route', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js', array( 'angular-core' ), '1.0', false );
+	
 	
 			wp_enqueue_style('font-awesome', plugin_dir_url( __FILE__ ) . 'css/font-awesome/css/font-awesome.min.css');
 
+		wp_enqueue_style('calendar-css', plugin_dir_url( __FILE__ ) . 'css/calendar.css');
+		
 }
 add_action ('init','lccc_news_scripts');
 
 require_once( plugin_dir_path( __FILE__ ).'php/plugin_functions.php' );
+
+require_once( plugin_dir_path( __FILE__ ).'php/rest-api-fetch.php' );
