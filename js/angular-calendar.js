@@ -77,19 +77,6 @@ app.controller("calendarDemo", function($scope) {
     $scope.day = moment();
 })
 
-
-
-function getDates($scope, data){
-	var myArray = [];
-	$scope.posts = data;
-			for($i=0; $i <= $scope.posts.length-1; $i++ ){
-						//console.log($scope.posts[$i].event_start_date);
-						myArray.push($scope.posts[$i].event_start_date);
-			}
-	console.log(myArray.length);
-	return myArray;
-}
-
 app.directive("calendar", function() {
     return {
         restrict: "E",
@@ -163,19 +150,7 @@ app.directive("calendar", function() {
         return days;
     }
 	
-				function _checkForEvent(eventPosts, athleticPosts, stockerPosts) {
-					 var events = [];     				
-					 var hasEvents = [];	
-					
-						Posts.query( function(res){
-								events.posts = res;
-						});									
-						
-						for(i=0; i <= events.length; i++){
-							hasEvents.push(events.posts.event_start_date);							
-						}
-						return hasEvents;
-				}
+
 	
 });
 
