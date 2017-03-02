@@ -149,6 +149,51 @@ app.directive("calendar", function() {
         }
         return days;
     }
+	function _createdates(scope,$q, eventFactory){
+		    scope.data = {};
+      var data1 = eventFactory.getData(mylcccapi.query, 'GET');
+      var data2 = eventFactory.getData(athleticsapi.query, 'GET');
+      var data3 = eventFactory.getData(stockerapi.query, 'GET');
+						var combinedData = $q.all({
+        firstResponse: data1,
+        secondResponse: data2,
+								thirdResponse: data3,
+      });
+      combinedData.then(function(response) {
+							var eventdates = [];
+							var combinedList = [];
+							for($i = 0; $i <= response.firstResponse.data.length; $i++){
+												eventdates.push(response.firstResponse.data[$i]);
+							}
+							for($i = 0; $i <= response.secondResponse.data.length; $i++){
+													eventdates.push(response.secondResponse.data[$i]);
+							}
+							for($i = 0; $i <= response.thirdResponse.data.length; $i++){
+											eventdates.push(response.thirdResponse.data[$i]);
+										
+							}
+							
+							eventdates = eventdates.filter(function( element ) {
+   						return element !== undefined;
+							});
+							
+							console.log('Final ' + eventdates.length);
+							
+							for($i = 0; $i <= eventdates.length-1; $i++){
+										//if(eventdates[$i].event_start_date != ''){
+											if( combinedList.indexOf(eventdates[$i].event_start_date) == -1 ){
+													combinedList.push(eventdates[$i].event_start_date);
+											}	
+										//}	
+						}
+						for($i = 0; $i <= combinedList.length-1; $i++){
+									console.log(combinedList[$i]);
+						}
+      }, function(error) {
+        scope.data = error;
+      });
+		
+	}
 	
 
 	
