@@ -69,10 +69,10 @@ class LCCC_Calendar_Event_Widget extends WP_Widget {
 		
 		//echo 'Without Empty: '.count($dates_with_events).'<br />';
 		//echo 'Events:'.'<br />';
-		for($y=0;$y < count($dates_with_events); $y++){
+/*		for($y=0;$y < count($dates_with_events); $y++){
 				echo $y.':  '.$dates_with_events[$y].'<br />';
 	  }
-		
+		*/
  $current_month = date("n");
  $current_year = date("Y");
  $current_date = date("Y") . '-' . date("m") . '-' . date("d");
@@ -222,22 +222,22 @@ if ($prev_month < $current_month && $prev_year == $current_year){
 echo '<div class="calendar-header">';
 				echo '<div class="header-placeholder">&nbsp;</div>';
 				echo '<div class="cur-month">' . date('F', mktime(0, 0, 0, $display_month, 10)) . ' ' . $display_year . '</div>';
-				echo '<div class="calendar-nav-next"><a href="?disp_m=' . $next_month . '&disp_y=' . $next_year . '"><img style="max-width:40%;" src="'.$plugin_image_dir.'Next-arrow.svg"</a></div></div><div style="clear:both;">';
+				echo '<div class="calendar-nav-next"><a href="?disp_m=' . $next_month . '&disp_y=' . $next_year . '"><img style="max-width:40%;" src="'.$plugin_image_dir.'Next-arrow.svg"></a></div></div><div style="clear:both;">';
 echo '</div>';
 
 }elseif($prev_month == $current_month && $prev_year == $current_year){
 echo '<div class="calendar-header">';
-				echo '<div class="calendar-nav-prev"><a href="?disp_m=' . $prev_month . '&disp_y=' . $prev_year . '">Previous Month</a></div>';
+				echo '<div class="calendar-nav-prev"><a href="?disp_m=' . $prev_month . '&disp_y=' . $prev_year . '"><img style="max-width:40%;" src="'.$plugin_image_dir.'Prev-arrow.svg"></a></div>';
 				echo '<div class="cur-month">' . date('F', mktime(0, 0, 0, $display_month, 10)) . ' ' . $display_year . '</div>';
-				echo '<div class="calendar-nav-next"><a href="?disp_m=' . $next_month . '&disp_y=' . $next_year . '"><img style="max-width:40%;" src="'.$plugin_image_dir.'Next-arrow.svg"</a></div>';
+				echo '<div class="calendar-nav-next"><a href="?disp_m=' . $next_month . '&disp_y=' . $next_year . '"><img style="max-width:40%;" src="'.$plugin_image_dir.'Next-arrow.svg"></a></div>';
 echo '</div>';
 echo '<div style="clear:both;"></div>';
 
 }else{
  echo '<div class="calendar-header">';
-				echo '<div class="calendar-nav-prev"><a href="?disp_m=' . $prev_month . '&disp_y=' . $prev_year . '">Previous Month</a></div>';
+				echo '<div class="calendar-nav-prev"><a href="?disp_m=' . $prev_month . '&disp_y=' . $prev_year . '"><img style="max-width:40%;" src="'.$plugin_image_dir.'Prev-arrow.svg"></a></div>';
 				echo '<div class="cur-month">' . date('F', mktime(0, 0, 0, $display_month, 10)) . ' ' . $display_year . '</div>';
-				echo '<div class="calendar-nav-next"><a href="?disp_m=' . $next_month . '&disp_y=' . $next_year . '"><img style="max-width:40%;" src="'.$plugin_image_dir.'Next-arrow.svg"</a></div>';
+				echo '<div class="calendar-nav-next"><a href="?disp_m=' . $next_month . '&disp_y=' . $next_year . '"><img style="max-width:40%;" src="'.$plugin_image_dir.'Next-arrow.svg"></a></div>';
 	echo '</div>';
 	echo '<div style="clear:both;"></div>';
 }
