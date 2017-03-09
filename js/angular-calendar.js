@@ -23,18 +23,13 @@ stockerapi.query = 'https://sites.lorainccc.edu/stocker/wp-json/wp/v2/lccc_event
       return notesService;
     }
   ]);
-
-app.controller('MainController', ['$scope', '$http', '$log', '$q', 'eventFactory',
-    function($scope, $http, $log, $q, eventFactory) {
-      $scope.data = {};
-      var data1 = eventFactory.getData(mylcccapi.query, 'GET');
-      var data2 = eventFactory.getData(athleticsapi.query, 'GET');
-      var data3 = eventFactory.getData(stockerapi.query, 'GET');
+/*app.factory('combinedData', ['$http', '$q','feed1', 'feed2', 'feed3',
+						function(feed1, feed2, feed3){
 						var combinedData = $q.all({
-        firstResponse: data1,
-        secondResponse: data2,
-								thirdResponse: data3,
-      });
+        					firstResponse: feed1,
+        					secondResponse: feed2,
+													thirdResponse: feed3,
+      	});
       combinedData.then(function(response) {
 							var eventdates = [];
 							var combinedList = [];
@@ -53,7 +48,7 @@ app.controller('MainController', ['$scope', '$http', '$log', '$q', 'eventFactory
    						return element !== undefined;
 							});
 							
-							$log.log('Final ' + eventdates.length);
+								$log.log('Final ' + eventdates.length);
 							
 							for($i = 0; $i <= eventdates.length-1; $i++){
 										//if(eventdates[$i].event_start_date != ''){
@@ -63,13 +58,80 @@ app.controller('MainController', ['$scope', '$http', '$log', '$q', 'eventFactory
 										//}	
 						}
 						for($i = 0; $i <= combinedList.length-1; $i++){
-									$log.log(combinedList[$i]);
+								$log.log(combinedList[$i]);
 						}
       }, function(error) {
         $scope.data = error;
-      });
-    }
+      });																		
+																													
+															}														
+											]);*/
+
+app.controller('MainController', ['$scope', '$http', '$log', '$q', 'eventFactory',
+    function($scope, $http, $log, $q, eventFactory) {
+      $scope.data = {};
+      var data1 = eventFactory.getData(mylcccapi.query, 'GET');
+      var data2 = eventFactory.getData(athleticsapi.query, 'GET');
+      var data3 = eventFactory.getData(stockerapi.query, 'GET');
+					//	var list = combinedData(data1,data2,data3);
+						$http.get(mylcccapi.query).success(function(data){
+										$scope.data = data;																	
+						});
+						console.log('main',$scope.data);
+    }																														
   ]);
+
+app.controller( 'MyCtrl',['$scope', '$q', '$timeout', 'eventFactory',
+ function($scope, $q, $timeout, eventFactory){  
+   var thenFn = function(value){
+       console.log('resolved ', value);
+       return value;
+   },
+  // q1 = $scope.q1 = $q.defer(),
+  // q2 = $scope.q2 = $q.defer(),
+  // p1 = $scope.q1.promise,
+  // p2 = $scope.q2.promise,
+ //var data1 = eventFactory.getData(mylcccapi.query, 'GET');
+   q3 = $scope.q3 = $q.defer(),
+   p3 = $scope.q3.promise;
+   
+   $scope.fromThen = $q.all([
+                           //p1.then(thenFn),
+                           //p2.then(thenFn),
+                           p3.then(thenFn),
+                       ])
+                       .then(function(values) {        
+                           console.log('values', values);
+                           return values;
+   });
+   
+   // Must start the AngularJS digest process
+   // to allow $q.resolve() to work properly
+   // So use $timeOut() or $apply()
+   
+   setTimeout(function () {
+   
+       $scope.$apply( function() {            
+           console.log('resolving delayed promises');
+           //q1.resolve({value : 1});
+           //q2.resolve({value : 2});
+           q3.resolve({value : 3});
+       });
+   }, 100, this);
+   
+
+   
+   /*
+    *  Alternative approach
+    *
+   $timeout( function() {
+       console.log('resolving delayed promises');
+       q1.resolve({value : 1});
+       q2.resolve({value : 2});        
+   });
+   */
+		}
+]);
 
 
 
@@ -77,7 +139,7 @@ app.controller("calendarDemo", function($scope) {
     $scope.day = moment();
 })
 
-app.directive("calendar", function() {
+app.directive("calendar", function($http) {
     return {
         restrict: "E",
         templateUrl: "/wp-content/themes/lorainccc-subsite/js/angularjs-templates/angular-calendar-temp.php",
@@ -85,6 +147,7 @@ app.directive("calendar", function() {
             selected: "=",
         },
         link: function(scope) {
+										
             scope.selected = _removeTime(scope.selected || moment());
             scope.month = scope.selected.clone();
 
@@ -149,51 +212,7 @@ app.directive("calendar", function() {
         }
         return days;
     }
-	function _createdates(scope,$q, eventFactory){
-		    scope.data = {};
-      var data1 = eventFactory.getData(mylcccapi.query, 'GET');
-      var data2 = eventFactory.getData(athleticsapi.query, 'GET');
-      var data3 = eventFactory.getData(stockerapi.query, 'GET');
-						var combinedData = $q.all({
-        firstResponse: data1,
-        secondResponse: data2,
-								thirdResponse: data3,
-      });
-      combinedData.then(function(response) {
-							var eventdates = [];
-							var combinedList = [];
-							for($i = 0; $i <= response.firstResponse.data.length; $i++){
-												eventdates.push(response.firstResponse.data[$i]);
-							}
-							for($i = 0; $i <= response.secondResponse.data.length; $i++){
-													eventdates.push(response.secondResponse.data[$i]);
-							}
-							for($i = 0; $i <= response.thirdResponse.data.length; $i++){
-											eventdates.push(response.thirdResponse.data[$i]);
-										
-							}
-							
-							eventdates = eventdates.filter(function( element ) {
-   						return element !== undefined;
-							});
-							
-							console.log('Final ' + eventdates.length);
-							
-							for($i = 0; $i <= eventdates.length-1; $i++){
-										//if(eventdates[$i].event_start_date != ''){
-											if( combinedList.indexOf(eventdates[$i].event_start_date) == -1 ){
-													combinedList.push(eventdates[$i].event_start_date);
-											}	
-										//}	
-						}
-						for($i = 0; $i <= combinedList.length-1; $i++){
-									console.log(combinedList[$i]);
-						}
-      }, function(error) {
-        scope.data = error;
-      });
-		
-	}
+
 	
 
 	

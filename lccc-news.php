@@ -120,3 +120,5 @@ add_action ('init','lccc_news_scripts');
 require_once( plugin_dir_path( __FILE__ ).'php/plugin_functions.php' );
 
 require_once( plugin_dir_path( __FILE__ ).'php/rest-api-fetch.php' );
+
+require_once( plugin_dir_path( __FILE__ ).'php/lccc_calendarwidget.php' );
