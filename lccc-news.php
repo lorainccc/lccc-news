@@ -101,6 +101,13 @@ function lccc_news_scripts() {
 	wp_enqueue_script('Moment-with-locale-Js', plugin_dir_url( __FILE__ ) . 'js/moment-with-locales.min.js');
 	
 		wp_enqueue_script('angular-calendar', plugin_dir_url( __FILE__ ) . 'js/angular-calendar.js','angular-core','1',true);
+	
+		wp_enqueue_script('ajax-calendar', plugin_dir_url( __FILE__ ).'js/ajax-calendar.js',array('jquery','Moment-Js'),'1',true);
+	
+	//Look into passing an array or function or  multiblog into the javascript to create list of dates to populate the calendar
+	wp_localize_script('ajax-calendar', 'wpDirectory', array(
+    'pluginsUrl' => plugins_url(),
+));
 
 	
 	wp_enqueue_script( 'angular-resource', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.js', array('angular-core'), '1.0', false );
