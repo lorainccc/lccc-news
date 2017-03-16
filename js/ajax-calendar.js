@@ -1,9 +1,10 @@
 jQuery(document).ready(function(){ 
+	console.log(wpDirectory.arrayOfDates);
 			//inital load	
 			jQuery('#prev-month').hide();
 	  jQuery('#header-placeholder').show();
 	
-			jQuery('#calendar-content').load(wpDirectory.pluginsUrl+'/lccc-news/php/ajax-calendar-template.php');
+			jQuery('#calendar-content').load(wpDirectory.pluginsUrl+'/lccc-news/php/ajax-calendar-template.php', {"lccc_date_array":wpDirectory.arrayOfDates});
 			jQuery('div.calendar-nav-next a').click(function(){
 						jQuery('#header-placeholder').hide();
 						jQuery('#prev-month').show();
@@ -74,7 +75,7 @@ jQuery(document).ready(function(){
 				document.getElementsByClassName("cur-month")[0].innerHTML = monthNames[displaymonth-1] + ' '+ nextyear; 
 				
 				//jQuery('#next-month').data('nxtyear',nextyear);
-				jQuery('#calendar-content').load(wpDirectory.pluginsUrl+'/lccc-news/php/ajax-calendar-template.php', {"disp_m":nextmonth,"disp_y":nextyear});
+				jQuery('#calendar-content').load(wpDirectory.pluginsUrl+'/lccc-news/php/ajax-calendar-template.php', {"disp_m":nextmonth,"disp_y":nextyear,"lccc_date_array":wpDirectory.arrayOfDates});
 				 return false;
 			}
 });

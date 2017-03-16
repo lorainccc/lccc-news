@@ -74,7 +74,50 @@ function run_lccc_news() {
 }
 run_lccc_news();
 
-
+function build_event_date_list(){
+	//Create an Array for storing the dates that have events
+			$dates_with_events = array();
+		
+		//Grab posts (endpoints)
+			$lcccevents = '';
+			$stockerevents = '';
+			$athleticevents = '';
+			$sportevents = '';
+			$categoryevents = '';
+			$domain = 'http://www.lorainccc.edu';
+			//$domain = 'http://' . $_SERVER['SERVER_NAME'];
+			$lcccevents = new Endpoint( $domain . '/mylccc/wp-json/wp/v2/lccc_events/?per_page=100' );
+			$athleticevents = new Endpoint( $domain . '/athletics/wp-json/wp/v2/lccc_events/?per_page=100' );
+			$stockerevents = new Endpoint( 'http://sites.lorainccc.edu/stocker/wp-json/wp/v2/lccc_events/?per_page=100' );
+		
+			//Create instance
+	$multi = new MultiBlog( 1 );
+		$multi->add_endpoint ( $lcccevents );
+		$multi->add_endpoint ( $athleticevents );
+		$multi->add_endpoint ( $stockerevents );
+		
+	//Fetch Posts(Events) from Endpoints
+	$posts = $multi->get_posts();
+	if(empty($posts)){
+		echo 'No Posts Found!';
+	}
+		
+	//establishing current date for testing
+		 $currentdate = date("Y-m-d");
+		
+ //Filling array with dates with events
+		 foreach ( $posts as $post ){
+					if( $post->event_end_date > $currentdate ){
+									array_push($dates_with_events, $post->event_end_date);
+					}
+			}
+		$dates_with_events = array_unique($dates_with_events);
+		$dates_with_events = array_filter($dates_with_events);
+		$dates_with_events = array_values($dates_with_events);
+	
+	return $dates_with_events;
+	
+}
 
 function my_plugin_init() {
 	if( class_exists( 'WordPressAngularJS' ) ) {
@@ -107,6 +150,7 @@ function lccc_news_scripts() {
 	//Look into passing an array or function or  multiblog into the javascript to create list of dates to populate the calendar
 	wp_localize_script('ajax-calendar', 'wpDirectory', array(
     'pluginsUrl' => plugins_url(),
+				'arrayOfDates' => build_event_date_list(),
 ));
 
 	
