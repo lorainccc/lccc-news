@@ -74,10 +74,7 @@ function run_lccc_news() {
 }
 run_lccc_news();
 
-function build_event_date_list(){
-	//Create an Array for storing the dates that have events
-			$dates_with_events = array();
-		
+function get_events(){		
 		//Grab posts (endpoints)
 			$lcccevents = '';
 			$stockerevents = '';
@@ -101,14 +98,68 @@ function build_event_date_list(){
 	if(empty($posts)){
 		echo 'No Posts Found!';
 	}
+	
+	return $posts;
+	
+}
+function get_stocker_events(){		
+		//Grab posts (endpoints)
+			$stockerevents = '';
+			$domain = 'http://www.lorainccc.edu';
+			//$domain = 'http://' . $_SERVER['SERVER_NAME'];
+			$stockerevents = new Endpoint( 'http://sites.lorainccc.edu/stocker/wp-json/wp/v2/lccc_events/?per_page=100' );
 		
+			//Create instance
+	$multi = new MultiBlog( 1 );
+		$multi->add_endpoint ( $stockerevents );
+		
+	//Fetch Posts(Events) from Endpoints
+	$posts = $multi->get_posts();
+	if(empty($posts)){
+		echo 'No Posts Found!';
+	}
+	
+	return $posts;
+	
+}
+
+function get_athletic_events(){		
+		//Grab posts (endpoints)
+			$athleticevents = '';
+			$sportevents = '';
+			$categoryevents = '';
+			$domain = 'http://www.lorainccc.edu';
+			//$domain = 'http://' . $_SERVER['SERVER_NAME'];
+			$athleticevents = new Endpoint( $domain . '/athletics/wp-json/wp/v2/lccc_events/?per_page=100' );
+			
+			//Create instance
+	$multi = new MultiBlog( 1 );
+		$multi->add_endpoint ( $athleticevents );
+		
+	//Fetch Posts(Events) from Endpoints
+	$posts = $multi->get_posts();
+	if(empty($posts)){
+		echo 'No Posts Found!';
+	}
+	
+	return $posts;
+	
+}
+
+
+function build_event_date_list(){
+		//Create an Array for storing the dates that have events
+			$dates_with_events = array();
+   $posts = array();
+		 $posts = get_events();
+	
 	//establishing current date for testing
 		 $currentdate = date("Y-m-d");
 		
  //Filling array with dates with events
 		 foreach ( $posts as $post ){
-					if( $post->event_end_date > $currentdate ){
-									array_push($dates_with_events, $post->event_end_date);
+					if( $post->event_start_date >= $currentdate ){
+									array_push($dates_with_events, $post->event_start_date);
 					}
 			}
 		$dates_with_events = array_unique($dates_with_events);
@@ -151,6 +202,9 @@ function lccc_news_scripts() {
 	wp_localize_script('ajax-calendar', 'wpDirectory', array(
     'pluginsUrl' => plugins_url(),
 				'arrayOfDates' => build_event_date_list(),
+		  'eventList' => get_events(),
+				'athelticEvents' => get_athletic_events(),
+				'stockerEvents' => get_stocker_events(),
 ));
 
 	

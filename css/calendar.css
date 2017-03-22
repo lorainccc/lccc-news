@@ -16,8 +16,8 @@ div.day a.today.selected div.ng-binding {
 #calendar{
 width: 100%;
 display: inline-block;
-background-color: #000;
-border: 1px solid #000;
+background-color: #666;
+border: 1px solid #444;
 margin-top: -6px;
 
 }
@@ -93,3 +93,9 @@ margin: 10px 0 0 0;
 	width: 54%;
  display: inline-block;
 	}
+div.day.current-day a#day.daylink .day-number{
+	color: #ffffff;
+}
+div.day.current-day a.calendar-event-listing .calendar-event-listing:after{
+	background-color: #fff;
+}

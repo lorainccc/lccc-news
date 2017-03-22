@@ -112,10 +112,11 @@ for($list_day = 1; $list_day <= $days_in_month; $list_day++):
 				}
 
 		if($bol_valid == true){
-			   $calendar.= '<a href="/mylccc/day?d='.$full_date.'">';
+			//   $calendar.= '<a href="/mylccc/day?d='.$full_date.'">';
+			 $calendar.= '<a id="day" class="daylink" data-selected="'.$full_date.'"  href="#">';
 			$calendar.= '<div class="day current-day">';
    			$calendar.= '<div class="day-number">'.$list_day.'</div>';
-						$calendar.= '<a class="calendar-event-listing" href="/mylccc/day?d='.$full_date.'"></a>';
+								$calendar.= '<a class="calendar-event-listing" href="#"></a>';
    $calendar.= '</div></a>';
 			
 		} else{
@@ -133,10 +134,11 @@ for($list_day = 1; $list_day <= $days_in_month; $list_day++):
 								}
 				}
 		if($bol_valid == true){
-			$calendar.= '<a style="display:block;" href="/mylccc/day?d='.$full_date.'">';
-									$calendar.= '<div class="day">';
+			//$calendar.= '<a style="display:block;" href="/mylccc/day?d='.$full_date.'">';
+			$calendar.= '<a id="day" class="daylink" data-selected="'.$full_date.'"  style="display:block;" href="#">';
+			$calendar.= '<div class="day">';
    $calendar.= '<div class="day-number">'.$list_day.'</div>';
-								$calendar.= '<a class="calendar-event-listing" href="/mylccc/day?d='.$full_date.'"></a>';
+					$calendar.= '<a class="calendar-event-listing" href="#"></a>';
 			$calendar.= '</div></a>';
 							} else{
 									$calendar.= '<div class="day">';
