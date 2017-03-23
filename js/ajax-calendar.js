@@ -159,15 +159,16 @@ jQuery(document).ready(function(){
 				jQuery('#calendar-content').load(wpDirectory.pluginsUrl+'/lccc-news/php/ajax-calendar-template.php', {"disp_m":nextmonth,"disp_y":nextyear,"lccc_date_array":wpDirectory.arrayOfDates});
 				 return false;
 			}
-	
+
 });
 
 jQuery(document).on('click', 'div.week a', function(){
-								var $this = jQuery(this);
+							var $this = jQuery(this);
+							jQuery(".active").removeClass("active");
+							$this.find(".day").addClass("active");
 								var $posts = [];
 								$posts = wpDirectory.eventList;
 								var $dateSelected = $this.data("selected");
-								//console.log($dateSelected);
 								var $titles = "";	
 								var $newDate = moment($dateSelected).format('MM/DD/YYYY');
 								var $titleDate =		moment($dateSelected).format('MMMM DD, YYYY');
@@ -234,6 +235,7 @@ jQuery(document).on('click', 'div.week a', function(){
 								document.getElementById("mobile-lccc-event-listings").innerHTML = $titles;
 });
 jQuery(document).on('change', '#event_type', function(){
+
 	 var $posts = [];
 		var $value = jQuery(this).val();
 		switch($value) {
