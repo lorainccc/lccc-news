@@ -234,5 +234,6 @@ function required_php(){
 						require_once( plugin_dir_path( __FILE__ ).'php/rest-api-fetch.php' );
 			} 
 }
-	add_action( 'plugins_loaded', 'required_php' );
+	add_action( 'admin_init', 'required_php' );
+
 require_once( plugin_dir_path( __FILE__ ).'php/lccc_calendarwidget.php' );
