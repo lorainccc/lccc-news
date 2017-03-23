@@ -222,8 +222,17 @@ function lccc_news_scripts() {
 }
 add_action ('init','lccc_news_scripts');
 
-//require_once( plugin_dir_path( __FILE__ ).'php/plugin_functions.php' );
+function required_php(){
+			if ( is_plugin_active_for_network( 'LCCC-MyLCCC-Info-Feed/my-lccc-info-feed.php' ) ) {
+					//plugin is activated
 
-require_once( plugin_dir_path( __FILE__ ).'php/rest-api-fetch.php' );
+			}elseif( is_plugin_active( 'LCCC-MyLCCC-Info-Feed/my-lccc-info-feed.php' ) ){
+					//plugin is activated
 
+			}else{
+						require_once( plugin_dir_path( __FILE__ ).'php/plugin_functions.php' );
+						require_once( plugin_dir_path( __FILE__ ).'php/rest-api-fetch.php' );
+			} 
+}
+	add_action( 'plugins_loaded', 'required_php' );
 require_once( plugin_dir_path( __FILE__ ).'php/lccc_calendarwidget.php' );
