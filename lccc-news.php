@@ -74,113 +74,20 @@ function run_lccc_news() {
 }
 run_lccc_news();
 
-function get_events(){		
-		//Grab posts (endpoints)
-			$lcccevents = '';
-			$stockerevents = '';
-			$athleticevents = '';
-			$sportevents = '';
-			$categoryevents = '';
-			$domain = 'http://www.lorainccc.edu';
-			//$domain = 'http://' . $_SERVER['SERVER_NAME'];
-			$lcccevents = new Endpoint( $domain . '/mylccc/wp-json/wp/v2/lccc_events/?per_page=100' );
-			$athleticevents = new Endpoint( $domain . '/athletics/wp-json/wp/v2/lccc_events/?per_page=100' );
-			$stockerevents = new Endpoint( 'http://sites.lorainccc.edu/stocker/wp-json/wp/v2/lccc_events/?per_page=100' );
-		
-			//Create instance
-	$multi = new MultiBlog( 1 );
-		$multi->add_endpoint ( $lcccevents );
-		$multi->add_endpoint ( $athleticevents );
-		$multi->add_endpoint ( $stockerevents );
-		
-	//Fetch Posts(Events) from Endpoints
-	$posts = $multi->get_posts();
-	if(empty($posts)){
-		echo 'No Posts Found!';
-	}
-	
-	return $posts;
-	
-}
-function get_stocker_events(){		
-		//Grab posts (endpoints)
-			$stockerevents = '';
-			$domain = 'http://www.lorainccc.edu';
-			//$domain = 'http://' . $_SERVER['SERVER_NAME'];
-			$stockerevents = new Endpoint( 'http://sites.lorainccc.edu/stocker/wp-json/wp/v2/lccc_events/?per_page=100' );
-		
-			//Create instance
-	$multi = new MultiBlog( 1 );
-		$multi->add_endpoint ( $stockerevents );
-		
-	//Fetch Posts(Events) from Endpoints
-	$posts = $multi->get_posts();
-	if(empty($posts)){
-		echo 'No Posts Found!';
-	}
-	
-	return $posts;
-	
-}
-
-function get_athletic_events(){		
-		//Grab posts (endpoints)
-			$athleticevents = '';
-			$sportevents = '';
-			$categoryevents = '';
-			$domain = 'http://www.lorainccc.edu';
-			//$domain = 'http://' . $_SERVER['SERVER_NAME'];
-			$athleticevents = new Endpoint( $domain . '/athletics/wp-json/wp/v2/lccc_events/?per_page=100' );
-			
-			//Create instance
-	$multi = new MultiBlog( 1 );
-		$multi->add_endpoint ( $athleticevents );
-		
-	//Fetch Posts(Events) from Endpoints
-	$posts = $multi->get_posts();
-	if(empty($posts)){
-		echo 'No Posts Found!';
-	}
-	
-	return $posts;
-	
-}
-
-
-function build_event_date_list(){
-		//Create an Array for storing the dates that have events
-			$dates_with_events = array();
-   $posts = array();
-		 $posts = get_events();
-	
-	//establishing current date for testing
-		 $currentdate = date("Y-m-d");
-		
- //Filling array with dates with events
-		 foreach ( $posts as $post ){
-					if( $post->event_start_date >= $currentdate ){
-									array_push($dates_with_events, $post->event_start_date);
-					}
-			}
-		$dates_with_events = array_unique($dates_with_events);
-		$dates_with_events = array_filter($dates_with_events);
-		$dates_with_events = array_values($dates_with_events);
-	
-	return $dates_with_events;
-	
-}
+// Assemble feeds
+include( plugin_dir_path( __FILE__ ).'php/get-feeds.php' );
 
 function my_plugin_init() {
 	if( class_exists( 'WordPressAngularJS' ) ) {
- 
+
 		// do my plugin stuff here
- 
+
 	}else{
 		function angular_admin_notice() {
    			$class = 'notice notice-error is-dismissible';
-						$message = __( '	
+						$message = __( '
 The plugin <a href="https://wordpress.org/plugins/angularjs-for-wp/">AngularJS for WordPress</a> by <a href="https://profiles.wordpress.org/guavaworks/">Roy Sivan</a> is currently Inactive or Unistalled. Please install and activate the plugin so that LCCC News plugin can function properly.', 'sample-text-domain' );
-						printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message ); 
+						printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message );
 					}
 add_action( 'network_admin_notices', 'angular_admin_notice' );
 
@@ -193,32 +100,36 @@ function lccc_news_scripts() {
 	wp_enqueue_script('Moment-Js', plugin_dir_url( __FILE__ ) . 'js/moment.js');
 
 	wp_enqueue_script('Moment-with-locale-Js', plugin_dir_url( __FILE__ ) . 'js/moment-with-locales.min.js');
-	
+
 		wp_enqueue_script('angular-calendar', plugin_dir_url( __FILE__ ) . 'js/angular-calendar.js','angular-core','1',true);
-	
+
 		wp_enqueue_script('ajax-calendar', plugin_dir_url( __FILE__ ).'js/ajax-calendar.js',array('jquery','Moment-Js'),'1',true);
-	
+
 	//Look into passing an array or function or  multiblog into the javascript to create list of dates to populate the calendar
 	wp_localize_script('ajax-calendar', 'wpDirectory', array(
     'pluginsUrl' => plugins_url(),
-				'arrayOfDates' => build_event_date_list(),
+				//'arrayOfDates' => '',
+    //'eventList' => '',
+    //'athelticEvents' => '',
+    //'stockerEvents' => '',
+    'arrayOfDates' => build_event_date_list(),
 		  'eventList' => get_events(),
 				'athelticEvents' => get_athletic_events(),
 				'stockerEvents' => get_stocker_events(),
 ));
 
-	
+
 	wp_enqueue_script( 'angular-resource', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.js', array('angular-core'), '1.0', false );
-	
+
 	wp_enqueue_script( 'ui-router', 'https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js', array( 'angular-core' ), '1.0', false );
-	
+
 		wp_enqueue_script( 'angular-route', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js', array( 'angular-core' ), '1.0', false );
-	
-	
+
+
 			wp_enqueue_style('font-awesome', plugin_dir_url( __FILE__ ) . 'css/font-awesome/css/font-awesome.min.css');
 
 		wp_enqueue_style('calendar-css', plugin_dir_url( __FILE__ ) . 'css/calendar.css');
-		
+
 }
 add_action ('init','lccc_news_scripts');
 
@@ -232,7 +143,7 @@ add_action ('init','lccc_news_scripts');
 			}else{
 						require_once( plugin_dir_path( __FILE__ ).'php/plugin_functions.php' );
 						require_once( plugin_dir_path( __FILE__ ).'php/rest-api-fetch.php' );
-			} 
+			}
 }
 	add_action( 'admin_init', 'required_php' );*/
 

@@ -119,7 +119,7 @@ class MultiBlog {
 	}
 
 	/**
-	 * Add an endpoint to theis collection
+	 * Add an endpoint to this collection
 	 *
 	 * @param $endpoint
 	 */
