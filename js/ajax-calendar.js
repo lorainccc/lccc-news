@@ -1,5 +1,5 @@
 jQuery(document).ready(function(){ 
-//	console.log(wpDirectory.arrayOfDates);
+	//console.log(wpDirectory.arrayOfDates);
 	//console.log(wpDirectory.eventList);
 	jQuery('#all-lccc-event-listings').show();
 				var $posts = [];
@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
 					$events += '<h2 style="font-size: 1.5rem;">LCCC Events for ' + $titleDate +'</h2>';
 					var $eventcounter = 0;			
 					var $eventbool = false;
-			//		console.log('Before' + $eventbool);
+					//console.log('Before' + $eventbool);
 					for($i=0; $i < $posts.length; $i++){
 									if($posts[$i].event_start_date == $Currentdate){
 												var $featured = $posts[$i].featured_media;
@@ -70,13 +70,15 @@ jQuery(document).ready(function(){
 										$eventbool = true;
 									}
 						 }
-	
 							if($eventbool == false){
 									$events += '<div style="margin-bottom:2rem;" class="small-12 medium-12 large-12 columns">';
 																	$events +='</h3>There are no scedule events for this date. </h3>';
 									$events +='</div>';		
-							}
-			document.getElementById("mobile-lccc-event-listings").innerHTML = $events;
+							 } else if($eventbool == true){
+         if(document.getElementById("mobile-lccc-event-listings")){
+			       document.getElementById("mobile-lccc-event-listings").innerHTML = $events;
+          }
+        }
 	
 			//inital load	
 			jQuery('#prev-month').hide();
@@ -230,9 +232,11 @@ jQuery(document).on('click', 'div.week a', function(){
 										 }
 									}	
 						 }
-												
-								document.getElementById("lccc-event-listings").innerHTML = $titles; 
-								document.getElementById("mobile-lccc-event-listings").innerHTML = $titles;
+       // Check if we're displaying the widget or not.
+								if(document.getElementById("lccc-event-listings")){
+								 document.getElementById("lccc-event-listings").innerHTML = $titles; 
+								 document.getElementById("mobile-lccc-event-listings").innerHTML = $titles;
+        }
 });
 jQuery(document).on('change', '#event_type', function(){
 
@@ -260,7 +264,7 @@ jQuery(document).on('change', '#event_type', function(){
 					$events += '<h2 style="font-size: 2.0rem;">' + $value +' Events</h2>';
 					var $eventcounter = 0;			
 					var $eventbool = false;
-			//		console.log('Before' + $eventbool);
+			  //console.log('Before' + $eventbool);
 					for($i=0; $i < $posts.length; $i++){
 									if($posts[$i].event_start_date >= $Currentdate){
 												var $featured = $posts[$i].featured_media;
