@@ -35,16 +35,25 @@ class LCCC_Calendar_Event_Widget extends WP_Widget {
 			$categoryevents = '';
 			$domain = 'http://www.lorainccc.edu';
 			//$domain = 'http://' . $_SERVER['SERVER_NAME'];
-			$lcccevents = new Endpoint( $domain . '/mylccc/wp-json/wp/v2/lccc_events/?per_page=100' );
-			$athleticevents = new Endpoint( $domain . '/athletics/wp-json/wp/v2/lccc_events/?per_page=100' );
-			$stockerevents = new Endpoint( $domain . '/stocker/wp-json/wp/v2/lccc_events/?per_page=100' );
+			$lcccevents = new Endpoint( $domain . '/mylccc/wp-json/wp/v2/lccc_events' );
+			$athleticevents = new Endpoint( $domain . '/athletics/wp-json/wp/v2/lccc_events' );
+			$stockerevents = new Endpoint( $domain . '/stocker/wp-json/wp/v2/lccc_events' );
 		
 			//Create instance
 	$multi = new MultiBlog( 1 );
+  
+  if ( $lcccevents != ''){
 		$multi->add_endpoint ( $lcccevents );
+  };
+  
+  if ( $athleticevents != ''){
 		$multi->add_endpoint ( $athleticevents );
+  };
+  
+  if ( $stockerevents != ''){
 		$multi->add_endpoint ( $stockerevents );
-		
+  };
+  
 	//Fetch Posts(Events) from Endpoints
 	$posts = $multi->get_posts();
 	if(empty($posts)){

@@ -108,14 +108,14 @@ function lccc_news_scripts() {
 	//Look into passing an array or function or  multiblog into the javascript to create list of dates to populate the calendar
 	wp_localize_script('ajax-calendar', 'wpDirectory', array(
     'pluginsUrl' => plugins_url(),
-				//'arrayOfDates' => '',
-    //'eventList' => '',
-    //'athelticEvents' => '',
-    //'stockerEvents' => '',
-    'arrayOfDates' => build_event_date_list(),
+				'arrayOfDates' => 'foo',
+    'eventList' => 'foo',
+    'athelticEvents' => 'foo',
+    'stockerEvents' => 'foo',
+/*    'arrayOfDates' => build_event_date_list(),
 		  'eventList' => get_events(),
 				'athelticEvents' => get_athletic_events(),
-				'stockerEvents' => get_stocker_events(),
+				'stockerEvents' => get_stocker_events(),*/
 ));
 
 
