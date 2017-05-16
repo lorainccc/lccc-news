@@ -37,7 +37,7 @@ class LCCC_Calendar_Event_Widget extends WP_Widget {
 			//$domain = 'http://' . $_SERVER['SERVER_NAME'];
 			$lcccevents = new Endpoint( $domain . '/mylccc/wp-json/wp/v2/lccc_events/?per_page=100' );
 			$athleticevents = new Endpoint( $domain . '/athletics/wp-json/wp/v2/lccc_events/?per_page=100' );
-			$stockerevents = new Endpoint( 'http://sites.lorainccc.edu/stocker/wp-json/wp/v2/lccc_events/?per_page=100' );
+			$stockerevents = new Endpoint( $domain . '/stocker/wp-json/wp/v2/lccc_events/?per_page=100' );
 		
 			//Create instance
 	$multi = new MultiBlog( 1 );
