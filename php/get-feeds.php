@@ -39,7 +39,7 @@ function get_events(){
   //Fetch Posts(Events) from Endpoints
   $posts = $multi->get_posts();
   if(empty($posts)){
-   echo 'No Posts Found!';
+   //echo 'No Posts Found!';
   }
 
   set_transient( 'LCCC_All_Events' , $posts, 43200);
@@ -70,7 +70,7 @@ function get_stocker_events(){
 	//Fetch Posts(Events) from Endpoints
 	$posts = $multi->get_posts();
 	if(empty($posts)){
-		echo 'No Posts Found!';
+		//echo 'No Posts Found!';
 	}
   
   set_transient( 'LCCC_Stocker_Events' , $posts, 43200);
@@ -104,7 +104,7 @@ function get_athletic_events(){
 	//Fetch Posts(Events) from Endpoints
 	$posts = $multi->get_posts();
 	if(empty($posts)){
-		echo 'No Posts Found!';
+		//echo 'No Posts Found!';
 	}
 
   set_transient( 'LCCC_Athletics_Events' , $posts, 43200);
