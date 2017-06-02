@@ -33,8 +33,8 @@ class LCCC_Calendar_Event_Widget extends WP_Widget {
 			$athleticevents = '';
 			$sportevents = '';
 			$categoryevents = '';
-			$domain = 'http://www.lorainccc.edu';
-			//$domain = 'http://' . $_SERVER['SERVER_NAME'];
+			//$domain = 'https://www.lorainccc.edu';
+			$domain = 'https://' . $_SERVER['SERVER_NAME'];
 			$lcccevents = new Endpoint( $domain . '/mylccc/wp-json/wp/v2/lccc_events' );
 			$athleticevents = new Endpoint( $domain . '/athletics/wp-json/wp/v2/lccc_events' );
 			$stockerevents = new Endpoint( $domain . '/stocker/wp-json/wp/v2/lccc_events' );
@@ -129,8 +129,8 @@ class LCCC_Calendar_Event_Widget extends WP_Widget {
  //echo 'Prev Month: ' . $prev_month . ' - ' . $prev_year . '<br/><br />';
 
 	//Grab posts (endpoints)
-  //$domain = 'http://' . $_SERVER['SERVER_NAME'];
-  $domain = 'http://www.lorainccc.edu';
+  $domain = 'https://' . $_SERVER['SERVER_NAME'];
+  //$domain = 'https://www.lorainccc.edu';
 		$plugin_image_dir = $domain.'/mylccc/wp-content/plugins/lccc-news/images/';
 /*if ($prev_month < $current_month && $prev_year == $current_year){
 echo '<div class="calendar-header">';
