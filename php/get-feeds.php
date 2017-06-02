@@ -24,8 +24,8 @@ function get_events(){
     $athleticevents = '';
     $sportevents = '';
     $categoryevents = '';
-    //$domain = 'https://www.lorainccc.edu';
-    $domain = 'https://' . $_SERVER['SERVER_NAME'];
+    $domain = 'https://www.lorainccc.edu';
+    //$domain = 'https://' . $_SERVER['SERVER_NAME'];
     $lcccevents = new Endpoint( $domain . '/mylccc/wp-json/wp/v2/lccc_events' );
     $athleticevents = new Endpoint( $domain . '/athletics/wp-json/wp/v2/lccc_events' );
     $stockerevents = new Endpoint( $domain . '/stocker/wp-json/wp/v2/lccc_events' );
@@ -59,8 +59,8 @@ function get_stocker_events(){
  
 		//Grab posts (endpoints)
 			$stockerevents = '';
-			//$domain = 'https://www.lorainccc.edu';
-			$domain = 'https://' . $_SERVER['SERVER_NAME'];
+			$domain = 'https://www.lorainccc.edu';
+			//$domain = 'https://' . $_SERVER['SERVER_NAME'];
 			$stockerevents = new Endpoint( $domain .'/stocker/wp-json/wp/v2/lccc_events' );
 
 			//Create instance
@@ -93,8 +93,8 @@ function get_athletic_events(){
 			$athleticevents = '';
 			$sportevents = '';
 			$categoryevents = '';
-			//$domain = 'https://www.lorainccc.edu';
-			$domain = 'https://' . $_SERVER['SERVER_NAME'];
+			$domain = 'https://www.lorainccc.edu';
+			//$domain = 'https://' . $_SERVER['SERVER_NAME'];
 			$athleticevents = new Endpoint( $domain . '/athletics/wp-json/wp/v2/lccc_events' );
 
 			//Create instance
