@@ -1,7 +1,7 @@
 <?php 	
 
 //Create an Array for storing the dates that have events
-			$dates_with_events = array();
+		$dates_with_events = array();
 		$dates_with_events = $_POST['lccc_date_array'];
 		//echo '<br />';
 		//echo '<br />';

@@ -19,11 +19,11 @@ function get_events(){
  } else {
 
    //Grab posts (endpoints)
-    $lcccevents = '';
-    $stockerevents = '';
-    $athleticevents = '';
-    $sportevents = '';
-    $categoryevents = '';
+    //$lcccevents = '';
+    //$stockerevents = '';
+    //$athleticevents = '';
+    //$sportevents = '';
+    //$categoryevents = '';
     $domain = 'https://www.lorainccc.edu';
     //$domain = 'https://' . $_SERVER['SERVER_NAME'];
     $lcccevents = new Endpoint( $domain . '/mylccc/wp-json/wp/v2/lccc_events' );
