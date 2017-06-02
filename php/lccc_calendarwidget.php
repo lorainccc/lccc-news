@@ -57,7 +57,7 @@ class LCCC_Calendar_Event_Widget extends WP_Widget {
 	//Fetch Posts(Events) from Endpoints
 	$posts = $multi->get_posts();
 	if(empty($posts)){
-		echo 'No Posts Found!';
+		//echo 'No Posts Found!';
 	}
 		
 	//establishing current date for testing
