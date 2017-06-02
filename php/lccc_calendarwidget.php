@@ -28,15 +28,15 @@ class LCCC_Calendar_Event_Widget extends WP_Widget {
 			$dates_with_events = array();
 		
 		//Grab posts (endpoints)
-			$lcccevents = '';
-			$stockerevents = '';
-			$athleticevents = '';
-			$sportevents = '';
-			$categoryevents = '';
+//			$lcccevents = '';
+//			$stockerevents = '';
+//			$athleticevents = '';
+//			$sportevents = '';
+//			$categoryevents = '';
 			//$domain = 'https://www.lorainccc.edu';
 			$domain = 'https://' . $_SERVER['SERVER_NAME'];
 			$lcccevents = new Endpoint( $domain . '/mylccc/wp-json/wp/v2/lccc_events' );
-			$athleticevents = new Endpoint( $domain . '/athletics/wp-json/wp/v2/lccc_events' );
+   $athleticevents = new Endpoint( $domain . '/athletics/wp-json/wp/v2/lccc_events' );
 			$stockerevents = new Endpoint( $domain . '/stocker/wp-json/wp/v2/lccc_events' );
 		
 			//Create instance
@@ -77,11 +77,11 @@ class LCCC_Calendar_Event_Widget extends WP_Widget {
 		//echo 'Count: '.count($dates_with_events).'<br />';
 		
 		//echo 'Without Empty: '.count($dates_with_events).'<br />';
-		//echo 'Events:'.'<br />';
-/*		for($y=0;$y < count($dates_with_events); $y++){
+/*		echo 'Events:'.'<br />';
+		for($y=0;$y < count($dates_with_events); $y++){
 				echo $y.':  '.$dates_with_events[$y].'<br />';
-	  }
-		*/
+	  }*/
+		
  $current_month = date("n");
  $current_year = date("Y");
  $current_date = date("Y") . '-' . date("m") . '-' . date("d");
