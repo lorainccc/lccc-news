@@ -112,21 +112,25 @@ class LCCC_Calendar_Event_Widget extends WP_Widget {
 
   $prev_month = 12;
  } elseif($display_month < '12'){
+		if($current_month == 1){
+			$next_month +=1;
+		} elseif($current_month > 1){
   $next_month +=1;
   $prev_month -=1;
   if ($prev_month == 0){
    $prev_month = 12;
    $prev_year -=1;
+			}
   }
  }
  
- //echo 'Current Month: ' . $current_month . ' - ' . $current_year . '<br /><br />';
+ echo 'Current Month: ' . $current_month . ' - ' . $current_year . '<br /><br />';
  
- //echo 'Display Month: ' . $display_month . ' - ' . $display_year . '<br /><br />';
+ echo 'Display Month: ' . $display_month . ' - ' . $display_year . '<br /><br />';
 
- //echo 'Next Month: ' . $next_month . ' - ' . $next_year . '<br/><br />';
+ echo 'Next Month: ' . $next_month . ' - ' . $next_year . '<br/><br />';
  
- //echo 'Prev Month: ' . $prev_month . ' - ' . $prev_year . '<br/><br />';
+ echo 'Prev Month: ' . $prev_month . ' - ' . $prev_year . '<br/><br />';
 
 	//Grab posts (endpoints)
   $domain = 'https://' . $_SERVER['SERVER_NAME'];
