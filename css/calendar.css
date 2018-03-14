@@ -151,3 +151,12 @@ div.current-day:after {
     margin: -2px auto 10px 20px;
     text-align: center;
 }
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 667px){
+	.heading-text{
+		font-size:.8rem;
+	} 
+	.day, .day-np {
+    width: 13.4%;
+	}
+}
