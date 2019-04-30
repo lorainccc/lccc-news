@@ -162,9 +162,9 @@ echo '<div style="clear:both;"></div>';
 		
 				echo '<div class="calendar-header">';
 			 echo '<div id="header-placeholder" class="header-placeholder">&nbsp;</div>';
-				echo '<div class="calendar-nav-prev"><a id="prev-month" href="#" data-prvmonth="'.$prev_month.'"data-prvyear="'.$prev_year.'"><img style="max-width:40%;" src="'.$plugin_image_dir.'Prev-arrow.svg" alt="Previous Month"></a></div>';
+				echo '<div class="calendar-nav-prev"><a id="prev-month" href="#" data-prvmonth="'.$prev_month.'"data-prvyear="'.$prev_year.'"><img style="max-width:40%; max-height:35px;" src="'.$plugin_image_dir.'Prev-arrow.svg" alt="Previous Month"></a></div>';
 				echo '<div class="cur-month">' . date('F', mktime(0, 0, 0, $display_month, 10)) . ' ' . $display_year . '</div>';
-				echo '<div class="calendar-nav-next"><a id="next-month" href="#" data-nxtmonth="'.$next_month.'"data-nxtyear="'.$next_year.'"><img style="max-width:40%;" src="'.$plugin_image_dir.'Next-arrow.svg" alt="Next Month"></a></div>';
+				echo '<div class="calendar-nav-next"><a id="next-month" href="#" data-nxtmonth="'.$next_month.'"data-nxtyear="'.$next_year.'"><img style="max-width:40%; max-height:35px;" src="'.$plugin_image_dir.'Next-arrow.svg" alt="Next Month"></a></div>';
 				echo '</div>';
 				echo '<div style="clear:both;"></div>';
 		
