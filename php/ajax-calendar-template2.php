@@ -131,7 +131,7 @@ for($list_day = 1; $list_day <= $days_in_month; $list_day++):
 								}
 				}
 		if($bol_valid == true){
-			$calendar.= '<a style="display:block;" href="/mylccc/day?d='.$full_date.'">';
+			$calendar.= '<a href="/mylccc/day?d='.$full_date.'">';
 									$calendar.= '<div class="day">';
    $calendar.= '<div class="day-number">'.$list_day.'</div>';
 								$calendar.= '<a class="calendar-event-listing" href="/mylccc/day?d='.$full_date.'"></a>';

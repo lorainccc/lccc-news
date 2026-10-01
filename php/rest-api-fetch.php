@@ -58,7 +58,7 @@ class Endpoint {
 	 * @param $page
 	 */
 	protected function make_request( $page ){
-		$request = wp_remote_get( add_query_arg( 'page', (int) $page, $this->url ) );
+		$request = wp_remote_get( add_query_arg( 'page', (int) $page, $this->url ), array('sslverify' => false,) );
 
 		if ( ! is_wp_error( $request ) && 200 === wp_remote_retrieve_response_code( $request ) ) {
 			$this->posts[ $page ] = json_decode( wp_remote_retrieve_body( $request ) );

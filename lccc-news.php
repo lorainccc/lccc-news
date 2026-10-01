@@ -112,10 +112,12 @@ function lccc_news_scripts() {
     'eventList' => 'foo',
     'athelticEvents' => 'foo',
     'stockerEvents' => 'foo',*/
-    'arrayOfDates' => build_event_date_list(),
-		  'eventList' => get_events(),
-				'athelticEvents' => get_athletic_events(),
-				'stockerEvents' => get_stocker_events(),
+    'arrayOfDates' => get_site_transient( 'LCCC_Event_Date_List' ),
+
+	// Call functions from LCCC MyLCCC Info Feed Plugin - Access Pre-Existing Transient
+    'eventList' => get_site_transient('LCCC_All_Events'),
+	//'athelticEvents' => lc_get_athletics_events(),
+	'stockerEvents' => get_site_transient('LCCC_Stocker_Events'),
 ));
 
 
@@ -123,12 +125,12 @@ function lccc_news_scripts() {
 
 	wp_enqueue_script( 'ui-router', 'https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js', array( 'angular-core' ), '1.0', false );
 
-		wp_enqueue_script( 'angular-route', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js', array( 'angular-core' ), '1.0', false );
+	wp_enqueue_script( 'angular-route', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js', array( 'angular-core' ), '1.0', false );
 
 
-			wp_enqueue_style('font-awesome', plugin_dir_url( __FILE__ ) . 'css/font-awesome/css/font-awesome.min.css');
+	wp_enqueue_style('font-awesome', plugin_dir_url( __FILE__ ) . 'css/font-awesome/css/font-awesome.min.css');
 
-		wp_enqueue_style('calendar-css', plugin_dir_url( __FILE__ ) . 'css/calendar.css');
+	wp_enqueue_style('calendar-css', plugin_dir_url( __FILE__ ) . 'css/calendar.css');
 
 }
 add_action ('init','lccc_news_scripts');
