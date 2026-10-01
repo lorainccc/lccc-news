@@ -67,7 +67,7 @@ $calendar = '<div id="calendar">';
 
 $headings = array('Sun','Mon','Tues','Wed','Thurs','Fri','Sat');
 
-$calendar .= '<div class="week heading"><div class="day heading"><div class="heading-text">'.implode('</div></div><div class="day heading"><div class="heading-text">', $headings).'</div></div></div>';
+$calendar .= '<div class="week heading" aria-label="week heading"><div class="day heading" aria-label="day heading"><div class="heading-text" aria-label="heading text">'.implode('</div></div><div class="day heading"><div class="heading-text">', $headings).'</div></div></div>';
 
 $running_day = date('w',mktime(0,0,0,$display_month,1,$display_year));
 $days_in_month = date('t',mktime(0,0,0,$display_month,1,$display_year));
@@ -78,7 +78,7 @@ $day_counter = 0;
 
 $dates_array = array();
 
-$calendar.= '<div class="week">';
+$calendar.= '<div class="week" aria-label="week">';
 
 for($x = 0; $x < $running_day; $x++):
 	$calendar.= '<div class="day-np">&nbsp;</div>';
