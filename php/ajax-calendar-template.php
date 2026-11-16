@@ -31,7 +31,6 @@
   
  $prev_month = $display_month;
  $prev_year = $display_year;
-  
 
  
  if ($display_month == '12'){
@@ -63,11 +62,28 @@
  //echo 'Prev Month: ' . $prev_month . ' - ' . $prev_year . '<br/><br />';
  
 
-$calendar = '<div id="calendar">';
+$calendar = '<table id="calendar">';
 
-$headings = array('Sun','Mon','Tues','Wed','Thurs','Fri','Sat');
+$headings = array(
+	'Sunday' => 'Sun',
+	'Monday' => 'Mon',
+	'Tuesday' => 'Tues',
+	'Wednesday' => 'Wed',
+	'Thursday' => 'Thurs',
+	'Friday' => 'Fri',
+	'Saturday' => 'Sat'
+	);
 
-$calendar .= '<div class="week heading" aria-label="week heading"><div class="day heading" aria-label="day heading"><div class="heading-text" aria-label="heading text">'.implode('</div></div><div class="day heading"><div class="heading-text">', $headings).'</div></div></div>';
+$calendar .= '<thead><tr>';
+
+foreach ( $headings as $full_name => $abbreviation ) {
+	$calendar .= '<th scope="col">';
+	$calendar .= '<span class="screen-reader-text">' . $full_name . '</span>';
+	$calendar .= '<span aria-hidden="true">' . $abbreviation . '</span>';
+	$calendar .= '</th>';
+}
+
+$calendar .= '</tr></thead>';
 
 $running_day = date('w',mktime(0,0,0,$display_month,1,$display_year));
 $days_in_month = date('t',mktime(0,0,0,$display_month,1,$display_year));
@@ -78,10 +94,10 @@ $day_counter = 0;
 
 $dates_array = array();
 
-$calendar.= '<div class="week" aria-label="week">';
+$calendar.= '<tr>';
 
 for($x = 0; $x < $running_day; $x++):
-	$calendar.= '<div class="day-np">&nbsp;</div>';
+	$calendar.= '<td class="day-np">&nbsp;</td>';
 	$days_in_this_week++;
 endfor;
 
@@ -113,43 +129,43 @@ for($list_day = 1; $list_day <= $days_in_month; $list_day++):
 
 		if($bol_valid == true){
 			//   $calendar.= '<a href="/mylccc/day?d='.$full_date.'">';
-			 $calendar.= '<a id="day" class="current-daylink" data-selected="'.$full_date.'" href="#">';
-								$calendar.= '<div class="day current-day">';
-												$calendar.= '<div class="day-number">'.$list_day.'</div>';
-								$calendar.= '</div>';
-				$calendar.= '</a>';
+			 $calendar.= '<td class="day current-day">';
+			 $calendar.= '<button type="button" class="current-daylink" data-selected="' . htmlspecialchars( $full_date, ENT_QUOTES, 'UTF-8' ) . '">';
+			 $calendar.= '<span class="day-number">'. htmlspecialchars( $list_day, ENT_QUOTES, 'UTF-8' ) .'</span>';
+			 $calendar.= '</button>';
+			 $calendar.= '</td>';
 			
 		} else{
 
-			$calendar.= '<div class="day current-day">';
-   			$calendar.= '<div class="day-number">'.$list_day.'</div>';
-			$calendar.= '</div>';
+			$calendar.= '<td class="day current-day">';
+   			$calendar.= '<span class="day-number">' . htmlspecialchars( $list_day, ENT_QUOTES, 'UTF-8' ) . '</span>';
+			$calendar.= '</td>';
 		}		
 		
 	}else{
 		$bol_valid = false;	
-    for($y=0;$y < count($dates_with_events); $y++){
-								if( $full_date == $dates_with_events[$y]){
-										$bol_valid = true;
-								}
-				}
+    	for($y=0;$y < count($dates_with_events); $y++){
+			if( $full_date == $dates_with_events[$y]){
+					$bol_valid = true;
+			}
+		}
 		if($bol_valid == true){
 			//$calendar.= '<a style="display:block;" href="/mylccc/day?d='.$full_date.'">';
-			$calendar.= '<a id="day" class="daylink" data-selected="'.$full_date.'"  href="#">';
-							$calendar.= '<div class="day">';
-												$calendar.= '<div class="day-number">'.$list_day.'</div>';
-							$calendar.= '</div>';
-			$calendar.= '</a>';
-							} else{
-									$calendar.= '<div class="day">';
-   $calendar.= '<div class="day-number">'.$list_day.'</div>';
-			$calendar.= '</div>';
+			$calendar.= '<td class="day">';
+			$calendar.= '<button type="button" class="daylink" data-selected="'. htmlspecialchars(  $full_date, ENT_QUOTES, 'UTF-8' ) . '">';
+			$calendar.= '<span class="day-number">' . htmlspecialchars( $list_day, ENT_QUOTES, 'UTF-8' ) . '</span>';
+			$calendar.= '</button>';
+			$calendar.= '</td>';
+		} else{
+			$calendar.= '<td class="day">';
+   			$calendar.= '<span class="day-number">' . htmlspecialchars( $list_day, ENT_QUOTES, 'UTF-8' ) . '</span>';
+			$calendar.= '</td>';
 		}
 	}
 	if($running_day == 6):
-		$calendar.= '</div>';
+		$calendar.= '</tr>';
 		if(($day_counter+1) != $days_in_month):
-			$calendar.= '<div class="week">';
+			$calendar.= '<tr>';
 		endif;
 		$running_day = -1;
 		$days_in_this_week = 0;
@@ -159,10 +175,14 @@ endfor;
 
 if($days_in_this_week < 8):
 	for($x = 1; $x <= (8 - $days_in_this_week); $x++):
-		$calendar.= '<div class="day-np">&nbsp;</div>';
+		$calendar.= '<td class="day-np">&nbsp;</td>';
 	endfor;
+		$calendar.= '</tr>';
 endif;
- 
+
+$calendar .= "  </tbody>";
+$calendar .= "</table>";
+
 echo $calendar;
 
 

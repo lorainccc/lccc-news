@@ -33,7 +33,7 @@ border: 1px solid #444;
 margin-top: -6px;
 
 }
-.calendar-header{
+#calendar thead th {
 	width: 100%;
 display: inline-block;
 background: #0055A5;
@@ -64,11 +64,11 @@ div.calendar-nav-next a imag{
 	max-width: 40%;
 }
 
-.week{
+#calendar tr{
 width: 100%;
 }
 
-.day{
+#calendar td{
 width: 13.6%;
 height: 45px;
 float:left;
@@ -77,12 +77,12 @@ margin: 1px 1.2px;
 background-color: #fff;
 }
  
-.current-day{
+#calendar td.current-day{
 background-color: #0055A5;
 	color: #fff;
 }
 
-.day-np{
+#calendar td.day-np{
 width: 13.6%;
 height: 45px;
 float:left;
@@ -101,24 +101,25 @@ text-align: center;
 margin: 10px 0 0 0;
 	    font-size: 1rem;
 }
-.day-number{
+#calendar td.day-number{
 	width: 54%;
  display: inline-block;
 	}
-div.day.current-day a#day.daylink .day-number{
+
+#calendar td.day.current-day button#day.daylink .day-number{
 	color: #ffffff;
 }
-div.day.current-day a.calendar-event-listing .calendar-event-listing:after{
+#calendar td.day.current-day button.calendar-event-listing .calendar-event-listing:after{
 	background-color: #fff;
 }
-div.week .day.active-select{
+#calendar td.week .day.active-select{
 	background-color: #000;
 }
-a.daylink div.day.active{
+#calendar button.daylink #calendar td.day.active{
 	color: #ffffff;
 	background-color: #000;
 }
-a.daylink div.day.active:after {
+#calendar button.daylink #calendar td.day.active:after {
     content: '';
     display: block;
     height: 10px;
@@ -129,7 +130,7 @@ a.daylink div.day.active:after {
     margin: -2px auto 10px 20px;
     text-align: center;
 }
-a.daylink div.day:after {
+#calendar button.daylink div.day:after {
     content: '';
     display: block;
     height: 10px;
@@ -140,7 +141,7 @@ a.daylink div.day:after {
     margin: -2px auto 10px 20px;
     text-align: center;
 }
-div.current-day:after {
+#calendar td.current-day:after {
     content: '';
     display: block;
     height: 10px;
@@ -153,10 +154,10 @@ div.current-day:after {
 }
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 413px){
-	.heading-text{
+	#calendar thead th.heading-text{
 		font-size:.8rem;
 	} 
-	.day, .day-np {
+	#calendar td.day, td.day-np {
     width: 13.4%;
 	}
 }
